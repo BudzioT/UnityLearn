@@ -4,10 +4,12 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] animals;
     public float spawnRangeX = 18f;
+    public float spawnPointLeft = -30f;
+    public float spawnPointRight = 18f;
     private const float SpawnZ = 18f;
 
-    private const float SpawnZTop = 20f;
-    private const float SpawnZBottom = -5f;
+    private const float SpawnZTop = 18f;
+    private const float SpawnZBottom = -3f;
 
     public float spawnDelay = 2;
     public float spawnInterval = 1.5f;
@@ -38,7 +40,7 @@ public class SpawnManager : MonoBehaviour
         else
         {
             int leftOrRight = Random.Range(0, 2);
-            float posX = (leftOrRight == 0 ? -5 : 20);
+            float posX = (leftOrRight == 0 ? spawnPointLeft : spawnPointRight);
             setRotation = true;
             rotation = Quaternion.Euler(0, leftOrRight == 0 ? 90 : 270, 0);
             spawnPos = new Vector3(posX, 0, Random.Range(SpawnZBottom, SpawnZTop));

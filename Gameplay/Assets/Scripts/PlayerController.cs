@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     private float _horizontalInput;
     private float _verticalInput;
-    private readonly float _speed = 10f;
+    private readonly float _speed = 15f;
     private readonly float _rangeX = 18f;
     private readonly float _rangeTop = 17f;
     private readonly float _rangeBottom = -2f;

@@ -9,6 +9,11 @@ public class Target : MonoBehaviour
     public Vector2 torqueRange = new Vector2(-10, 10);
     public Vector2 spawnPosXRange = new Vector2(-4, 4);
     public float spawnPosY = -6;
+
+    public int points = 0;
+    public ParticleSystem explosionParticle;
+    
+    private GameManager _gameManager;
     
     private void Start()
     {
@@ -16,15 +21,31 @@ public class Target : MonoBehaviour
         _rigidbody.AddForce(RandomForce(), ForceMode.Impulse);
         _rigidbody.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
         transform.position = RandomSpawnPos();
+
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void OnMouseDown()
     {
+        if (!_gameManager.isGameActive)
+        {
+            return;
+        }
+        
         Destroy(gameObject);
+        _gameManager.UpdateScore(points);
+
+        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!gameObject.CompareTag("Bad"))
+        {
+            _gameManager.GameOver();
+            Debug.Log("DEAD");
+        }
+        
         Destroy(gameObject);
     }
 
